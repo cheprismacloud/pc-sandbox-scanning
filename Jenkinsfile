@@ -2,7 +2,7 @@ pipeline {
    agent any
    environment {
       AWS_REGION = 'us-east-1'
-      ECR_REPOSITORY = '885311887145.dkr.ecr.us-east-1.amazonaws.com/code2cloud-ecr'
+      ECR_REPOSITORY = '131841475848.dkr.ecr.us-east-1.amazonaws.com/code2cloud-ecr'
       CONTAINER_NAME = 'code2cloud'
    }
     stages {
@@ -14,6 +14,7 @@ pipeline {
                   aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY:$CONTAINER_NAME
                   echo "Building the Docker image..."
                   docker build -t $ECR_REPOSITORY:$CONTAINER_NAME ./app/
+                  
                   docker image  prune -f
                   docker image ls
                   '''
